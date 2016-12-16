@@ -15,8 +15,7 @@ builddocker:
 	docker build --tag ${NAMESPACE}:build --file ./Dockerfile.build .
 
 build: builddocker $(PROGRAMS)
-	touch .env && \
-		docker run --tty ${NAMESPACE}:build /bin/true && \
+	docker run --tty ${NAMESPACE}:build /bin/true && \
 		docker rm `docker ps -q -n=1` && \
 		docker build --rm --tag ${NAMESPACE}:latest --file ./Dockerfile.static .
 
